@@ -16,7 +16,7 @@ app.listen(3000);
 var options = {
     client_id: "lIi8OMlenRU",
     client_secret: "e5eedf664371cea451a4ca43e938cf9829e813f9",
-    scope: "move_read",
+    scope: "basic_read extended_read location_read friends_read mood_read mood_write move_read move_write sleep_read sleep_write meal_read meal_write weight_read weight_write cardiac_read cardiac_write generic_event_read generic_event_write",
     redirect_uri: "http://localhost:3000/oauth/oauth_callback"
 };
 
@@ -37,6 +37,20 @@ app.get('/oauth/oauth_callback', function (req, res) {
         console.log(res);
     });
 });
+
+app.get('/test', function (req, res) {
+    options.access_token="b6_3pfGGwEgB8ANxhimuRDiwm81cuT3GnIXW3MGqGd5VfGCxRxJbU0fMxmYf2dgE8EvaJSumcI0GoYT-V9UbpVECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";
+//"access_token": "Je5CDuGC9OQWA7glkvsTAIxTROoomAisVMoygpmEeSZp2unIKNv7_puujesDa0CBI9kncuO0JgRXW2MSxp0B_VECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP", "token_type": "Bearer", "expires_in": 31536000, "refresh_token": "RWuGvZ23POs-b6Uhe1nEvUE18Y9fMNtqpXCCfvMEvGfdL2WxNgQvKekaCy5aBtavNNWfJhnfRQwlAN2iCODyqw"
+    var client = new Jawbone(options);
+
+    client.getBodyEvent(function (err, data) {
+        res.send(data);
+    });
+});
+
+//https://apigee.com/oauth_callback/UP/oauth2CodeCallback?code=mGKV_178jYzxqJfTogjahRsyVUzxWa_qZZxyv4M-kTD_tpMD-scm8oyydxk-ZMEe4675e9PR2JnD6u6cbRLabwJcUBjI6eiUmwPsZau6mE4qFHUbrwIyuWo0Z2LBaFf926_9J8ClH736u1YGuXQ4XULYuz_gcPxLKrRG72wteU0G01vzYiqxC4UYU4wUZRr7y46ZmM12KnYoKlCedaKes1U7DkcELlxzM4RsLvKGvhg
+
+
 
 // var passport = require('passport');
 // var JawboneStrategy = require('passport-jawbone').Strategy;
