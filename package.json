@@ -1,6 +1,6 @@
 {
   "name": "jawbone-oauth2",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Jawbone API for NodeJS",
   "main": "dist/Jawbone.js",
   "scripts": {
