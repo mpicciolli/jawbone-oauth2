@@ -1,5 +1,6 @@
 # jawbone-oauth2
 [![NPM][npm-image]][npm-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
 
 Jawbone API library for node.js
 
