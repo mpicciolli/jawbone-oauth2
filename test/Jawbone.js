@@ -41,9 +41,32 @@ app.get('/all', function (req, res) {
 //"access_token": "Je5CDuGC9OQWA7glkvsTAIxTROoomAisVMoygpmEeSZp2unIKNv7_puujesDa0CBI9kncuO0JgRXW2MSxp0B_VECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP", "token_type": "Bearer", "expires_in": 31536000, "refresh_token": "RWuGvZ23POs-b6Uhe1nEvUE18Y9fMNtqpXCCfvMEvGfdL2WxNgQvKekaCy5aBtavNNWfJhnfRQwlAN2iCODyqw"
     var client = new Jawbone(options);
 
-    client.getBodyEvent(function (err, data) {
+    // client.getSleep(function (err, data) {
+    //     res.send(data);
+    // });
+
+    // client.getSleepTick("a65JOjY0RUjLZGf--GPOl7XIMPVrWTR_", function (err, data) {
+    //     res.send(data);
+    // });
+
+    // var sleep = {
+    //     time_created: moment().unix() - 10000,
+    //     time_completed: moment().unix(),
+    //     tz:"America/Los Angeles",
+    //     share:false
+    // };
+    //
+    // client.createSleep(sleep, function (err, data) {
+    //     res.send(data);
+    // });
+
+    client.deleteSleep("_AjWsWOzJA_T1jksTmMkonIBazTPtc30", function (err, data){
         res.send(data);
     });
+
+    // client.getMoveTick("a65JOjY0RUi-vt4fUhYU15J49VStYeS4",function (err, data) {
+    //     res.send(data);
+    // });
 
     // client.getOneBodyEvent("nX2CH4SpPkzSfQQbw07SfrwskSV5bQif", function (err, data) {
     //     res.send(data);

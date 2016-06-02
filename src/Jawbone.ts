@@ -5,11 +5,27 @@ export interface IJawbone {
     getRequestToken(code:string, cb:any):void;
 
     //Body
-    getBodyEvent(cb:any):any;
-    getOneBodyEvent(id:string, cb:any):any;
-    createBodyEvent(event:IBodyEvent, cb:any):any;
-    deleteBodyEvent(id:string, cb:any):any;
+    getBodyEvent(cb:any):void;
+    getOneBodyEvent(id:string, cb:any):void;
+    createBodyEvent(event:IBodyEvent, cb:any):void;
+    deleteBodyEvent(id:string, cb:any):void;
 
+    //Heart Rate
+    getHeartRate(cb:any):void;
+
+    //Moves
+    getMove(cb:any):void;
+    getOneMove(id:string, cb:any):void;
+    getMoveGraph(id:string, cb:any):void;
+    getMoveTick(id:string, cb:any):void;
+
+    //Sleeps
+    getSleep(cb:any):void;
+    getOneSleep(id:string, cb:any):void;
+    getSleepGraph(id:string, cb:any):void;
+    getSleepTick(id:string, cb:any):void;
+    createSleep(event:ISleep, cb:any):void;
+    deleteSleep(id:string, cb:any):void;
 }
 
 export interface IJawboneOptionModel {
@@ -18,6 +34,14 @@ export interface IJawboneOptionModel {
     redirect_uri:string;
     scope:string;
     access_token?:string
+}
+
+export interface ISleep {
+    time_created:number
+    time_completed:number
+    ticks?:Array
+    tz:string
+    share:boolean
 }
 
 export interface IBodyEvent {
@@ -42,6 +66,7 @@ export class Jawbone implements IJawbone {
         this.config = config;
     }
 
+    //Authentication
     authorizeURL():string {
         let url:string = Jawbone.authentication
             .concat("?client_id=")
@@ -79,20 +104,156 @@ export class Jawbone implements IJawbone {
         });
     }
 
-    getBodyEvent(cb:any):any {
+    //Get body composition metrics record events for a user.
+    getBodyEvent(cb:any):void {
         this.apiGet("body_events", cb);
     }
 
-    getOneBodyEvent(id:string, cb:any):any {
+    getOneBodyEvent(id:string, cb:any):void {
         this.apiGetId("body_events", id, cb);
     }
 
-    createBodyEvent(event:IBodyEvent, cb:any):any {
+    createBodyEvent(event:IBodyEvent, cb:any):void {
         this.apiPost("body_events", event, cb);
     }
 
-    deleteBodyEvent(id:string, cb:any):any {
+    deleteBodyEvent(id:string, cb:any):void {
         this.apiDelete("body_events", id, cb);
+    }
+
+    //Get resting heart rate for a user
+    getHeartRate(cb:any):void {
+        this.apiGet("heartrates", cb); //TODO NOT OK
+    }
+
+    //Get the user's move list
+    getMove(cb:any):void {
+        this.apiGet("moves", cb);
+    }
+
+    getOneMove(id:string, cb:any):void {
+        this.apiGetId("moves", id, cb);
+    }
+
+    getMoveGraph(id:string, cb:any):void {
+        let url = Jawbone.jawboneApi
+            .concat("moves/")
+            .concat(id)
+            .concat("/image");
+
+        request({
+                url: url,
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                }
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
+    }
+
+    getMoveTick(id:string, cb:any):void {
+        let url = Jawbone.jawboneApi
+            .concat("moves/")
+            .concat(id)
+            .concat("/ticks");
+
+        request({
+                url: url,
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                }
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
+    }
+
+    getSleep(cb:any):void {
+        this.apiGet("sleeps", cb);
+    }
+
+    getOneSleep(id:string, cb:any):void {
+        this.apiGetId("sleeps", id, cb);
+    }
+
+    getSleepGraph(id:string, cb:any):void {
+        let url = Jawbone.jawboneApi
+            .concat("sleeps/")
+            .concat(id)
+            .concat("/image");
+
+        request({
+                url: url,
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                }
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
+    }
+
+    getSleepTick(id:string, cb:any):void {
+        let url = Jawbone.jawboneApi
+            .concat("sleeps/")
+            .concat(id)
+            .concat("/ticks");
+
+        request({
+                url: url,
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                }
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
+    }
+
+    createSleep(event:ISleep, cb:any):void {
+        this.apiPost("sleeps", event, cb);
+    }
+
+    deleteSleep(id:string, cb:any):void {
+        this.apiDelete("sleeps", id, cb);
+
     }
 
     // /**

@@ -1,5 +1,13 @@
 # jawbone-oauth2 lib Release Notes
 
+## v0.0.2 - June 02, 2016
+
+- Get the user's sleep list
+- Get the information about a specific sleep period
+- Get the user's sleep graphs
+- Create a sleep (with or without sleep phases)
+- Delete a single sleep event.
+
 ## v0.0.1 - June 02, 2016
 
 - Basic OAuth flow
