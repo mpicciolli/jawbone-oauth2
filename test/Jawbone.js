@@ -42,6 +42,11 @@ app.get('/all', function (req, res) {
 //"access_token": "Je5CDuGC9OQWA7glkvsTAIxTROoomAisVMoygpmEeSZp2unIKNv7_puujesDa0CBI9kncuO0JgRXW2MSxp0B_VECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP", "token_type": "Bearer", "expires_in": 31536000, "refresh_token": "RWuGvZ23POs-b6Uhe1nEvUE18Y9fMNtqpXCCfvMEvGfdL2WxNgQvKekaCy5aBtavNNWfJhnfRQwlAN2iCODyqw"
     var client = new Jawbone(options);
 
+    client.getBandEvent(function (err, data) {
+        res.send(data);
+    });
+
+
     // client.getSleep(function (err, data) {
     //     res.send(data);
     // });

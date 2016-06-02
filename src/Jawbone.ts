@@ -4,6 +4,9 @@ export interface IJawbone {
     authorizeURL():string;
     getRequestToken(code:string, cb:any):void;
 
+    //Band Events
+    getBandEvent(cb:any):void;
+
     //Body
     getBodyEvent(cb:any):void;
     getOneBodyEvent(id:string, cb:any):void;
@@ -119,6 +122,13 @@ export class Jawbone implements IJawbone {
             }
         });
     }
+
+
+    getBandEvent(cb:any){
+        this.apiGet("bandevents", cb);
+    }
+
+
 
     //Get body composition metrics record events for a user.
     getBodyEvent(cb:any):void {
