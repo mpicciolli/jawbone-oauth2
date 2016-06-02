@@ -63,3 +63,8 @@ Contributions are welcome. See issues [here](https://github.com/mpicciolli/jawbo
 ## License
 
 Licensed under [Apache 2.0](./LICENSE).
+
+[npm-image]: https://nodei.co/npm/jawbone-oauth2.png
+[npm-url]: https://nodei.co/npm/jawbone-oauth2/
+[daviddm-image]: https://david-dm.org/mpicciolli/jawbone-oauth2.svg
+[daviddm-url]: https://david-dm.org/mpicciolli/jawbone-oauth2
