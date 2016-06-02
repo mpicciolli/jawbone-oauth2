@@ -16,6 +16,12 @@ export interface IJawbone {
     //Heart Rate
     getHeartRate(cb:any):void;
 
+    //Body
+    getCustomEvent(cb:any):void;
+    createCustomEvent(event:IBodyEvent, cb:any):void;
+    updateCustomEvent(id:string, cb:any):void;
+    deleteCustomEvent(id:string, cb:any):void;
+
     //Moves
     getMove(cb:any):void;
     getOneMove(id:string, cb:any):void;
@@ -37,6 +43,20 @@ export interface IJawbone {
     deleteSleep(id:string, cb:any):void;
 
 
+}
+export interface ICustomEvent {
+    title:string;
+    verb:string;
+    attributes:any;
+    note:string;
+    image_url:string;
+    place_lat:number;
+    place_lon:number;
+    place_acc:number;
+    place_name:string;
+    time_created:number;
+    tz:number;
+    share:boolean;
 }
 
 export interface IJawboneOptionModel {
@@ -124,10 +144,9 @@ export class Jawbone implements IJawbone {
     }
 
 
-    getBandEvent(cb:any){
+    getBandEvent(cb:any) {
         this.apiGet("bandevents", cb);
     }
-
 
 
     //Get body composition metrics record events for a user.
@@ -147,9 +166,27 @@ export class Jawbone implements IJawbone {
         this.apiDelete("body_events", id, cb);
     }
 
+
     //Get resting heart rate for a user
     getHeartRate(cb:any):void {
         this.apiGet("heartrates", cb); //TODO NOT OK
+    }
+
+
+    getCustomEvent(cb:any):void {
+        this.apiGet("generic_events", cb);
+    }
+
+    createCustomEvent(event:ICustomEvent, cb:any):void {
+        this.apiPost("generic_events", event, cb);
+    }
+
+    updateCustomEvent(id:string, event:ICustomEvent, cb:any):void {
+        this.apiPut("generic_events", id, event, cb);
+    }
+
+    deleteCustomEvent(id:string, cb:any):void {
+        this.apiDelete("generic_events", id, cb);
     }
 
     //Get the user's move list
@@ -229,7 +266,6 @@ export class Jawbone implements IJawbone {
     deleteMood(id:string, cb:any):void {
         this.apiDelete("mood", id, cb);
     };
-
 
 
     getSleep(cb:any):void {
@@ -376,6 +412,36 @@ export class Jawbone implements IJawbone {
             .concat("users/@me/")
             .concat(str);
 
+
+        request({
+                url: url,
+                method: 'POST',
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                },
+                form: options
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
+    }
+
+    private apiPut(str:string, id:string, options:any, cb:any) {
+        let url = Jawbone.jawboneApi
+            .concat(str)
+            .concat("/")
+            .concat(id)
+            .concat("/")
+            .concat("partialUpdate");
 
         request({
                 url: url,

@@ -42,9 +42,9 @@ app.get('/all', function (req, res) {
 //"access_token": "Je5CDuGC9OQWA7glkvsTAIxTROoomAisVMoygpmEeSZp2unIKNv7_puujesDa0CBI9kncuO0JgRXW2MSxp0B_VECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP", "token_type": "Bearer", "expires_in": 31536000, "refresh_token": "RWuGvZ23POs-b6Uhe1nEvUE18Y9fMNtqpXCCfvMEvGfdL2WxNgQvKekaCy5aBtavNNWfJhnfRQwlAN2iCODyqw"
     var client = new Jawbone(options);
 
-    client.getBandEvent(function (err, data) {
-        res.send(data);
-    });
+    //client.getBandEvent(function (err, data) {
+    //    res.send(data);
+    //});
 
 
     // client.getSleep(function (err, data) {
@@ -95,7 +95,6 @@ app.get('/all', function (req, res) {
     // });
 
 
-
     var mood = {
         title: "Youhou !!!",
         sub_type: 1,
@@ -117,6 +116,39 @@ app.get('/all', function (req, res) {
     //});
     //
     //client.deleteMood("_AjWsWOzJA_niCoDfXZ6OGGDVsgGooT-",function (err, data){
+    //    res.send(data);
+    //});
+
+    var customEvent = {
+        "title": "Sunset today at November 21st, 2013 at 4:49PM",
+        verb: "Verb to indicate user action",
+        note: "Description of the event",
+        "time_created": 1384963500,
+        "place_lat": "37.451572",
+        "place_lon": "-122.184435",
+        "place_acc": 10,
+        "place_name": "Work",
+        "image_url": "/nudge/image/d/770eca483cd211e3910e22000a1fb6b5_image.png",
+        "attributes": {
+            "description": "My local sunset time updated"
+        },
+        share: false,
+        "tz": "America/Los_Angeles"
+    };
+
+    client.getCustomEvent(function (err, data) {
+        res.send(data);
+    });
+
+    //client.createCustomEvent(customEvent, function (err, data) {
+    //    res.send(data);
+    //});
+
+    //client.updateCustomEvent("_AjWsWOzJA_ZH-K1kvnWjYDNWRiviq_z",  customEvent, function (err, data) {
+    //    res.send(data);
+    //});
+
+    //client.deleteCustomEvent("_AjWsWOzJA_ZH-K1kvnWjYDNWRiviq_z", function (err, data) {
     //    res.send(data);
     //});
 });

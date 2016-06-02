@@ -1,8 +1,15 @@
 # jawbone-oauth2 lib Release Notes
 
-## v0.0.3 - June 03, 2016
+## Next version
 
 - Get the band events
+- Get a custom event for the user
+- Creates a new custom event
+- Update a custom event
+- Delete a custom event
+
+## v0.0.3 - June 03, 2016
+
 - Get user's mood
 - Get a single mood event
 - Record user's mood
