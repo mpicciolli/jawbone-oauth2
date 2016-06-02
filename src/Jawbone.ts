@@ -7,7 +7,7 @@ export interface IJawbone {
     //Body
     getBodyEvent(cb:any):any;
     getOneBodyEvent(id:string, cb:any):any;
-    createBodyEvent(event:IBodyEvent):any;
+    createBodyEvent(event:IBodyEvent, cb:any):any;
     deleteBodyEvent(id:string, cb:any):any;
 
 }
@@ -83,26 +83,41 @@ export class Jawbone implements IJawbone {
         this.apiGet("body_events", cb);
     }
 
+    getOneBodyEvent(id:string, cb:any):any {
+        this.apiGetId("body_events", id, cb);
+    }
+
+    createBodyEvent(event:IBodyEvent, cb:any):any {
+        this.apiPost("body_events", event, cb);
+    }
+
+    deleteBodyEvent(id:string, cb:any):any {
+        this.apiDelete("body_events", id, cb);
+    }
+
+    // /**
+    //  * Serializes an object into a parameter string
+    //  * for use with making REST API calls.
+    //  *
+    //  * @tutorial http://stackoverflow.com/a/1714899/2953164
+    //  * @private
+    //  * @param  {Object} obj Object to serialize.
+    //  * @return {String}     String representation of object as param string.
+    //  */
+    // private serialize(obj) {
+    //     var str = [];
+    //     for (var p in obj) {
+    //         if (obj.hasOwnProperty(p)) {
+    //             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    //         }
+    //     }
+    //     return str.join("&");
+    // };
+
     private apiGet(str:string, cb) {
         let url = Jawbone.jawboneApi
             .concat("users/@me/")
             .concat(str);
-            //.concat("?")
-            //.concat(this.serialize({
-            //access_token: this.config.access_token,
-            //client_secret: this.config.client_secret
-            //}));
-
-        //https://jawbone.com/nudge/api/v.1.1/users/@me/body_events?
-        //Je5CDuGC9OSc-05UAifnK1TV4HUZZV7cVMoygpmEeSZp2unIKNv7_gaTRsDH27eFhgnEDh7dUyFXW2MSxp0B_VECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP
-
-
-        //si id
-        //'/' + str + '/' + xid
-
-
-        //'/users/@me/' + str + '?' + serialize(options)
-        console.log(url);
 
         request({
                 url: url,
@@ -124,34 +139,85 @@ export class Jawbone implements IJawbone {
             });
     }
 
-    /**
-     * Serializes an object into a parameter string
-     * for use with making REST API calls.
-     *
-     * @tutorial http://stackoverflow.com/a/1714899/2953164
-     * @private
-     * @param  {Object} obj Object to serialize.
-     * @return {String}     String representation of object as param string.
-     */
-    private serialize(obj) {
-        var str = [];
-        for (var p in obj) {
-            if (obj.hasOwnProperty(p)) {
-                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            }
-        }
-        return str.join("&");
+    private apiGetId(str:string, id:string, cb) {
+        let url = Jawbone.jawboneApi
+            .concat(str)
+            .concat('/')
+            .concat(id);
+
+        request({
+                url: url,
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                }
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
     };
 
-    getOneBodyEvent(id:string, cb:any):any {
-        return undefined;
+    private apiPost(str:string, options:any, cb:any) {
+        let url = Jawbone.jawboneApi
+            .concat("users/@me/")
+            .concat(str);
+
+
+        request({
+                url: url,
+                method: 'POST',
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                },
+                form: options
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
     }
 
-    createBodyEvent(event:IBodyEvent):any {
-        return undefined;
-    }
+    private apiDelete(str:string, id:string, cb:any) {
 
-    deleteBodyEvent(id:string, cb:any):any {
-        return undefined;
+        let url = Jawbone.jawboneApi
+            .concat(str)
+            .concat('/')
+            .concat(id);
+
+        request({
+                url: url,
+                method: 'DELETE',
+                headers: {
+                    'X-HostCommonName': "jawbone.com",
+                    'Authorization': 'Bearer ' + this.config.access_token,
+                    'Host': "jawbone.com",
+                    'X-Target-URI': "https://jawbone.com",
+                    'Accept': 'application/json',
+                    'Connection': 'Keep-Alive'
+                }
+            },
+            function (err, response, body) {
+                if (err)
+                    console.log(err);
+
+                if (body)
+                    cb(null, body);
+            });
     }
 }

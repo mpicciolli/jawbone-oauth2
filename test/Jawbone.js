@@ -1,8 +1,6 @@
 "use strict";
-var OAuth = require('oauth');
-var qs = require('querystring');
+var express = require('express');moment
 var moment = require('moment');
-var express = require('express');
 var app = express();
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -23,14 +21,14 @@ var options = {
 app.get('/', function (req, res) {
 
     var client = new Jawbone(options);
-    
+
     res.redirect(client.authorizeURL());
 });
 
 app.get('/oauth/oauth_callback', function (req, res) {
 
     var code = req.query.code;
-    
+
     var client = new Jawbone(options);
 
     client.getRequestToken(code, function (err, res) {
@@ -38,18 +36,50 @@ app.get('/oauth/oauth_callback', function (req, res) {
     });
 });
 
-app.get('/test', function (req, res) {
-    options.access_token="b6_3pfGGwEgB8ANxhimuRDiwm81cuT3GnIXW3MGqGd5VfGCxRxJbU0fMxmYf2dgE8EvaJSumcI0GoYT-V9UbpVECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";
+app.get('/all', function (req, res) {
+    options.access_token = "b6_3pfGGwEgB8ANxhimuRDiwm81cuT3GnIXW3MGqGd5VfGCxRxJbU0fMxmYf2dgE8EvaJSumcI0GoYT-V9UbpVECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";
 //"access_token": "Je5CDuGC9OQWA7glkvsTAIxTROoomAisVMoygpmEeSZp2unIKNv7_puujesDa0CBI9kncuO0JgRXW2MSxp0B_VECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP", "token_type": "Bearer", "expires_in": 31536000, "refresh_token": "RWuGvZ23POs-b6Uhe1nEvUE18Y9fMNtqpXCCfvMEvGfdL2WxNgQvKekaCy5aBtavNNWfJhnfRQwlAN2iCODyqw"
     var client = new Jawbone(options);
 
     client.getBodyEvent(function (err, data) {
         res.send(data);
     });
+
+    // client.getOneBodyEvent("nX2CH4SpPkzSfQQbw07SfrwskSV5bQif", function (err, data) {
+    //     res.send(data);
+    // });
+
+    // var bodyEvent = {
+    //     title: null,
+    //     weight: 82.6,
+    //     body_fat: 0,
+    //     lean_mass: null,
+    //     bmi: null,
+    //     note: null,
+    //     time_created: moment().unix(),
+    //     tz: null,
+    //     shared: false
+    // };
+
+
+    // client.createBodyEvent(bodyEvent, function (err, data) {
+    //     res.send(data);
+    // });
+
+
 });
 
-//https://apigee.com/oauth_callback/UP/oauth2CodeCallback?code=mGKV_178jYzxqJfTogjahRsyVUzxWa_qZZxyv4M-kTD_tpMD-scm8oyydxk-ZMEe4675e9PR2JnD6u6cbRLabwJcUBjI6eiUmwPsZau6mE4qFHUbrwIyuWo0Z2LBaFf926_9J8ClH736u1YGuXQ4XULYuz_gcPxLKrRG72wteU0G01vzYiqxC4UYU4wUZRr7y46ZmM12KnYoKlCedaKes1U7DkcELlxzM4RsLvKGvhg
+app.get('/:id', function (req, res) {
+    options.access_token = "b6_3pfGGwEgB8ANxhimuRDiwm81cuT3GnIXW3MGqGd5VfGCxRxJbU0fMxmYf2dgE8EvaJSumcI0GoYT-V9UbpVECdgRlo_GULMgGZS0EumxrKbZFiOmnmAPChBPDZ5JP";
+    var client = new Jawbone(options);
 
+    client.deleteBodyEvent("_AjWsWOzJA-4c2jZMqXqMnDny_yKiaNL", function (err, data) {
+        res.send(data);
+    });
+});
+
+
+//https://apigee.com/oauth_callback/UP/oauth2CodeCallback?code=mGKV_178jYzxqJfTogjahRsyVUzxWa_qZZxyv4M-kTD_tpMD-scm8oyydxk-ZMEe4675e9PR2JnD6u6cbRLabwJcUBjI6eiUmwPsZau6mE4qFHUbrwIyuWo0Z2LBaFf926_9J8ClH736u1YGuXQ4XULYuz_gcPxLKrRG72wteU0G01vzYiqxC4UYU4wUZRr7y46ZmM12KnYoKlCedaKes1U7DkcELlxzM4RsLvKGvhg
 
 
 // var passport = require('passport');
