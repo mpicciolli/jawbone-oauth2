@@ -52,6 +52,10 @@ app.get('/oauth/oauth_callback', function (req, res) {
 });
 ```
 
+## Release Notes
+
+See release notes [here](./RELEASENOTES.md).
+
 ## Contributing
 
 Contributions are welcome. See issues [here](https://github.com/mpicciolli/jawbone-oauth2/issues).
