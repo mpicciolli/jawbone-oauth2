@@ -2,6 +2,7 @@
 
 ## v0.0.3 - June 03, 2016
 
+- Get the band events
 - Get user's mood
 - Get a single mood event
 - Record user's mood
