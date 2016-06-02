@@ -1,5 +1,11 @@
 # jawbone-oauth2 lib Release Notes
 
+## v0.0.3 - June 03, 2016
+-Get user's mood
+-Get a single mood event
+-Record user's mood
+-Delete a single mood event
+
 ## v0.0.2 - June 02, 2016
 
 - Get the user's sleep list

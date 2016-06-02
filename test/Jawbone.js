@@ -1,5 +1,6 @@
 "use strict";
-var express = require('express');moment
+var express = require('express');
+moment
 var moment = require('moment');
 var app = express();
 var cookieParser = require('cookie-parser');
@@ -60,9 +61,9 @@ app.get('/all', function (req, res) {
     //     res.send(data);
     // });
 
-    client.deleteSleep("_AjWsWOzJA_T1jksTmMkonIBazTPtc30", function (err, data){
-        res.send(data);
-    });
+    //client.deleteSleep("_AjWsWOzJA_T1jksTmMkonIBazTPtc30", function (err, data){
+    //    res.send(data);
+    //});
 
     // client.getMoveTick("a65JOjY0RUi-vt4fUhYU15J49VStYeS4",function (err, data) {
     //     res.send(data);
@@ -84,12 +85,35 @@ app.get('/all', function (req, res) {
     //     shared: false
     // };
 
-
     // client.createBodyEvent(bodyEvent, function (err, data) {
     //     res.send(data);
     // });
 
 
+
+    var mood = {
+        title: "Youhou !!!",
+        sub_type: 1,
+        time_created: moment().unix(),
+        tz: "America/Los Angeles",
+        share: false
+    };
+
+    //client.getMood(function (err, data) {
+    //    res.send(data);
+    //});
+
+    //client.getOneMood("nX2CH4SpPkzHTkX9tqTv-PLTjFH3BgyB", function (err, data) {
+    //    res.send(data);
+    //});
+
+    //client.createMood(mood, function (err, data){
+    //    res.send(data);
+    //});
+    //
+    //client.deleteMood("_AjWsWOzJA_niCoDfXZ6OGGDVsgGooT-",function (err, data){
+    //    res.send(data);
+    //});
 });
 
 app.get('/:id', function (req, res) {

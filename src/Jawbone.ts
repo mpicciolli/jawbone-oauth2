@@ -19,13 +19,21 @@ export interface IJawbone {
     getMoveGraph(id:string, cb:any):void;
     getMoveTick(id:string, cb:any):void;
 
+    //Mood
+    getMood(cb:any):void;
+    getOneMood(id:string, cb:any):void;
+    createMood(mood:IMood, cb:any):void;
+    deleteMood(id:string, cb:any):void;
+
     //Sleeps
     getSleep(cb:any):void;
     getOneSleep(id:string, cb:any):void;
     getSleepGraph(id:string, cb:any):void;
     getSleepTick(id:string, cb:any):void;
-    createSleep(event:ISleep, cb:any):void;
+    createSleep(sleep:ISleep, cb:any):void;
     deleteSleep(id:string, cb:any):void;
+
+
 }
 
 export interface IJawboneOptionModel {
@@ -33,7 +41,15 @@ export interface IJawboneOptionModel {
     client_secret;
     redirect_uri:string;
     scope:string;
-    access_token?:string
+    access_token?:string;
+}
+
+export interface IMood {
+    title:string;
+    sub_type:number;
+    time_created:number;
+    tz:string;
+    share:boolean;
 }
 
 export interface ISleep {
@@ -187,6 +203,25 @@ export class Jawbone implements IJawbone {
             });
     }
 
+
+    getMood(cb:any):void {
+        this.apiGet("mood", cb);
+    }
+
+    getOneMood(id:string, cb:any):void {
+        this.apiGetId("mood", id, cb);
+    }
+
+    createMood(mood:IMood, cb:any):void {
+        this.apiPost("mood", mood, cb);
+    }
+
+    deleteMood(id:string, cb:any):void {
+        this.apiDelete("mood", id, cb);
+    };
+
+
+
     getSleep(cb:any):void {
         this.apiGet("sleeps", cb);
     }
@@ -247,8 +282,8 @@ export class Jawbone implements IJawbone {
             });
     }
 
-    createSleep(event:ISleep, cb:any):void {
-        this.apiPost("sleeps", event, cb);
+    createSleep(sleep:ISleep, cb:any):void {
+        this.apiPost("sleeps", sleep, cb);
     }
 
     deleteSleep(id:string, cb:any):void {
