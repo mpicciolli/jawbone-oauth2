@@ -136,9 +136,9 @@ app.get('/all', function (req, res) {
         "tz": "America/Los_Angeles"
     };
 
-    client.getCustomEvent(function (err, data) {
-        res.send(data);
-    });
+    //client.getCustomEvent(function (err, data) {
+    //    res.send(data);
+    //});
 
     //client.createCustomEvent(customEvent, function (err, data) {
     //    res.send(data);
@@ -149,6 +149,18 @@ app.get('/all', function (req, res) {
     //});
 
     //client.deleteCustomEvent("_AjWsWOzJA_ZH-K1kvnWjYDNWRiviq_z", function (err, data) {
+    //    res.send(data);
+    //});
+
+
+    var goal = {
+        sleep_total: 30000
+    };
+    client.getGoal(function (err, data) {
+        res.send(data);
+    });
+    //
+    //client.updateGoal(goal, function (err, data) {
     //    res.send(data);
     //});
 });

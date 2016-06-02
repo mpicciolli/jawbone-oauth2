@@ -3,6 +3,8 @@
 ## Next version
 
 - Get the band events
+- Get the user goals
+- Create/Update a user goal
 - Get a custom event for the user
 - Creates a new custom event
 - Update a custom event

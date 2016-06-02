@@ -16,11 +16,15 @@ export interface IJawbone {
     //Heart Rate
     getHeartRate(cb:any):void;
 
-    //Body
+    //Custom
     getCustomEvent(cb:any):void;
-    createCustomEvent(event:IBodyEvent, cb:any):void;
-    updateCustomEvent(id:string, cb:any):void;
+    createCustomEvent(event:ICustomEvent, cb:any):void;
+    updateCustomEvent(id:string, event:ICustomEvent, cb:any):void;
     deleteCustomEvent(id:string, cb:any):void;
+
+    //Goals
+    getGoal(cb:any):void;
+    updateGoal(goal:IGoal, cb:any):void;
 
     //Moves
     getMove(cb:any):void;
@@ -44,6 +48,14 @@ export interface IJawbone {
 
 
 }
+
+export interface IGoal {
+    move_steps?:number;
+    sleep_total?:number;
+    body_weight?:number;
+    body_weight_intent?:number;
+}
+
 export interface ICustomEvent {
     title:string;
     verb:string;
@@ -188,6 +200,17 @@ export class Jawbone implements IJawbone {
     deleteCustomEvent(id:string, cb:any):void {
         this.apiDelete("generic_events", id, cb);
     }
+
+
+    getGoal(cb:any):void {
+        this.apiGet("goals", cb);
+    }
+
+    updateGoal(goal:IGoal, cb:any):void {
+        this.apiPost("goals", goal, cb);
+    }
+
+
 
     //Get the user's move list
     getMove(cb:any):void {
