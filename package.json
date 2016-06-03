@@ -4,7 +4,7 @@
   "description": "Jawbone API for NodeJS",
   "main": "dist/Jawbone.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp"
   },
   "keywords": [
     "jawbone"
@@ -28,9 +28,12 @@
     "typings": "1.0.4"
   },
   "dependencies": {
+    "chai": "^3.5.0",
+    "gulp-mocha": "^2.2.0",
     "moment": "^2.13.0",
     "oauth": "^0.9.14",
     "querystring": "^0.2.0",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "sinon": "^1.17.4"
   }
 }

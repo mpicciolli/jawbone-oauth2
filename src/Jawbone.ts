@@ -26,6 +26,13 @@ export interface IJawbone {
     getGoal(cb:any):void;
     updateGoal(goal:IGoal, cb:any):void;
 
+    //Meals
+    getMeal(cb:any):void;
+    getOneMeal(id:string, cb:any):void;
+    createMeal(meal:IMeal, cb:any):void;
+    updateMeal(id:string, meal:IMeal, cb:any):void;
+    deleteMeal(id:string, cb:any):void;
+
     //Moves
     getMove(cb:any):void;
     getOneMove(id:string, cb:any):void;
@@ -47,6 +54,44 @@ export interface IJawbone {
     deleteSleep(id:string, cb:any):void;
 
 
+}
+
+export interface IMeal {
+    note:string;
+    sub_type:number;
+    image_url?:string;
+    photo?:string;
+    place_lat:number;
+    place_lon:number;
+    place_acc:number;
+    place_name:string;
+    time_created:number;
+    tz:string;
+    share:boolean;
+    items:Array<IMealIteam>;
+}
+
+export interface IMealIteam {
+    name:string;
+    description:string;
+    amount:number;
+    measurement:string;
+    type:number;
+    sub_type:number;
+    food_categories?:Array<any>;
+    category?:string;
+    food_type?:number;
+    calcium:number;
+    calories:number;
+    carbohydrate:number;
+    cholesterol:number;
+    fiber:number;
+    protein:number;
+    saturated_fat:number;
+    sodium:number;
+    sugar:number;
+    unsaturated_fat:number;
+    caffeine:number;
 }
 
 export interface IGoal {
@@ -90,7 +135,7 @@ export interface IMood {
 export interface ISleep {
     time_created:number
     time_completed:number
-    ticks?:Array
+    ticks?:Array<any>
     tz:string
     share:boolean
 }
@@ -108,6 +153,27 @@ export interface IBodyEvent {
 }
 
 export class Jawbone implements IJawbone {
+
+    getMeal(cb:any):void {
+        this.apiGet("meals", cb);
+    }
+
+    getOneMeal(id:string, cb:any):void {
+        this.apiGetId("meals", id, cb);
+    }
+
+    createMeal(meal:IMeal, cb:any):void {
+        this.apiPost("meals", meal, cb);
+    }
+
+    updateMeal(id:string, meal:IMeal, cb:any):void {
+        this.apiPut("meals", id, meal, cb);
+    }
+
+    deleteMeal(id:string, cb:any):void {
+        this.apiDelete("meals", id, cb);
+
+    }
 
     public static authentication:string = "https://jawbone.com/auth/oauth2/auth";
     public static authorization:string = "https://jawbone.com/auth/oauth2/token";
@@ -209,7 +275,6 @@ export class Jawbone implements IJawbone {
     updateGoal(goal:IGoal, cb:any):void {
         this.apiPost("goals", goal, cb);
     }
-
 
 
     //Get the user's move list
@@ -400,7 +465,7 @@ export class Jawbone implements IJawbone {
                     console.log(err);
 
                 if (body)
-                    cb(null, body);
+                    cb(null, JSON.parse(body).data);
             });
     }
 
@@ -426,7 +491,7 @@ export class Jawbone implements IJawbone {
                     console.log(err);
 
                 if (body)
-                    cb(null, body);
+                    cb(null, JSON.parse(body).data);
             });
     };
 
@@ -454,7 +519,7 @@ export class Jawbone implements IJawbone {
                     console.log(err);
 
                 if (body)
-                    cb(null, body);
+                    cb(null, JSON.parse(body).data);
             });
     }
 
@@ -484,7 +549,7 @@ export class Jawbone implements IJawbone {
                     console.log(err);
 
                 if (body)
-                    cb(null, body);
+                    cb(null, JSON.parse(body).data);
             });
     }
 
@@ -512,7 +577,7 @@ export class Jawbone implements IJawbone {
                     console.log(err);
 
                 if (body)
-                    cb(null, body);
+                    cb(null, JSON.parse(body).data);
             });
     }
 }
