@@ -30,7 +30,7 @@ describe('Jawbone API for NodeJS :', function () {
         done();
     });
 
-    describe('Authentication :', function () {
+     describe('Authentication :', function () {
         describe('authorizeURL()', function () {
             it('Should get Jawbone Authentication page', function (done) {
                 var url = client.authorizeURL();
@@ -46,7 +46,7 @@ describe('Jawbone API for NodeJS :', function () {
         });
     });
 
-    describe('Band Events :', function () {
+     describe('Band Events :', function () {
         describe('getBandEvent()', function () {
             it('Should get the band events', function (done) {
                 client.getBandEvent(function (err, data) {
@@ -58,7 +58,7 @@ describe('Jawbone API for NodeJS :', function () {
         });
     });
 
-    describe('Body:', function () {
+     describe('Body:', function () {
 
         var bodyEventCreatedId;
 
@@ -125,7 +125,7 @@ describe('Jawbone API for NodeJS :', function () {
         });
     });
 
-    describe('Heart Rate', function () {
+     describe('Heart Rate', function () {
         describe('getHeartRate()', function () {
             it('Should get resting heart rate for a user', function (done) {
                 client.getCustomEvent(function (err, data) {
@@ -137,7 +137,7 @@ describe('Jawbone API for NodeJS :', function () {
         });
     });
 
-    describe('Custom Event :', function () {
+     describe('Custom Event :', function () {
 
         var customEvent = {
             "title": "Sunset today at November 21st, 2013 at 4:49PM",
@@ -207,7 +207,7 @@ describe('Jawbone API for NodeJS :', function () {
         });
     });
 
-    describe('Goals :', function () {
+     describe('Goals :', function () {
         describe('getGoal()', function () {
             it('Should get the user goals', function (done) {
                 client.getGoal(function (err, data) {
@@ -233,7 +233,7 @@ describe('Jawbone API for NodeJS :', function () {
         });
     });
 
-    // describe('Meals :', function () {
+    // describe('Meal :', function () {
     //
     //     var meal = {
     //         note: "Something Good",
@@ -328,18 +328,87 @@ describe('Jawbone API for NodeJS :', function () {
     //     });
     // });
 
+    describe('Mood:', function () {
+
+        var moodCreatedId;
+
+        before(function (done) {
+            describe('createMood()', function () {
+                it('Should record a user mood', function (done) {
+                    var mood = {
+                        title: "Youhou !!!",
+                        sub_type: 1,
+                        time_created: moment().unix(),
+                        tz: "America/Los Angeles",
+                        share: false
+                    };
+
+                    client.createMood(mood, function (err, data) {
+                        expect(err).to.eq(null);
+                        expect(data).to.not.equal(null);
+                        moodCreatedId = data.xid;
+                        done();
+                    });
+                });
+            });
+            done();
+        });
+
+
+        describe('getMood()', function () {
+            it('Retrieve user mood', function (done) {
+                client.getMood(function (err, data) {
+                    expect(err).to.eq(null);
+                    expect(data).to.not.equal(null);
+                    done();
+                });
+            });
+        });
+
+        describe('getOneBodyEvent()', function () {
+            it('Should get  a single mood event', function (done) {
+                client.getOneMood(moodCreatedId, function (err, data) {
+                    expect(err).to.eq(null);
+                    expect(data).to.not.equal(null);
+                    expect(data.xid).to.eq(moodCreatedId);
+                    done();
+                })
+            });
+        });
+
+
+        after(function (done) {
+            describe('deleteMood()', function () {
+                it('Should delete a single mood event', function (done) {
+                    client.deleteMood(moodCreatedId, function (err, data) {
+                        expect(err).to.eq(null);
+                        expect(data).to.not.equal(null);
+                        done();
+                    });
+                });
+            });
+            done();
+        });
+    });
+
+    // //Moves
+    // getMove(cb:any):void;
+    // getOneMove(id:string, cb:any):void;
+    // getMoveGraph(id:string, cb:any):void;
+    // getMoveTick(id:string, cb:any):void;
+
+
     // var sleep = {
     //     time_created: moment().unix() - 10000,
     //     time_completed: moment().unix(),
-    //     tz:"America/Los Angeles",
-    //     share:false
-    // };
-
-    // var mood = {
-    //     title: "Youhou !!!",
-    //     sub_type: 1,
-    //     time_created: moment().unix(),
     //     tz: "America/Los Angeles",
     //     share: false
     // };
+    // //Sleeps
+    // getSleep(cb:any):void;
+    // getOneSleep(id:string, cb:any):void;
+    // getSleepGraph(id:string, cb:any):void;
+    // getSleepTick(id:string, cb:any):void;
+    // createSleep(sleep:ISleep, cb:any):void;
+    // deleteSleep(id:string, cb:any):void;
 });

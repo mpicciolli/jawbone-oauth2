@@ -32,18 +32,18 @@ export interface IJawbone {
     createMeal(meal:IMeal, cb:any):void;
     updateMeal(id:string, meal:IMeal, cb:any):void;
     deleteMeal(id:string, cb:any):void;
+    
+    //Mood
+    getMood(cb:any):void;
+    getOneMood(id:string, cb:any):void;
+    createMood(mood:IMood, cb:any):void;
+    deleteMood(id:string, cb:any):void;
 
     //Moves
     getMove(cb:any):void;
     getOneMove(id:string, cb:any):void;
     getMoveGraph(id:string, cb:any):void;
     getMoveTick(id:string, cb:any):void;
-
-    //Mood
-    getMood(cb:any):void;
-    getOneMood(id:string, cb:any):void;
-    createMood(mood:IMood, cb:any):void;
-    deleteMood(id:string, cb:any):void;
 
     //Sleeps
     getSleep(cb:any):void;
